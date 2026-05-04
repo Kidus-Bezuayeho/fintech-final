@@ -7,6 +7,7 @@
 \usepackage{booktabs}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{hyperref}
 
 \onehalfspacing
 \pagestyle{plain}
@@ -15,7 +16,10 @@
 
 \noindent Kidus Bezuayeho \\
 May 2026 \\
-Fintech Write-Up
+Fintech Final Write-Up
+
+\noindent\textbf{Note:} All code and images are available on GitHub (Solutions/ contains all code; write-up/tables/ contains all images and the LaTeX source): \\
+\href{https://github.com/Kidus-Bezuayeho/fintech-final}{https://github.com/Kidus-Bezuayeho/fintech-final}
 
 \section*{Question 0}
 
@@ -144,5 +148,42 @@ Since that would just include all 6 for each day, I opted to use the closest pri
 In this comparison, we can see that the overall shape of the data is identical to that of the study, with rank one having the majority of the concentration, a sharp drop from rank 1 to rank 2, then a slow decline from rank 2 to 10. 
 However, the scale of my graph is much larger than that of the paper. My graph shows that the top 10 stocks have a concentration of about 93\% of the buying while the paper's is 35\%. This difference is likely due to my subsample having far fewer stocks observed per day, 
 so the top 10 captures nearly all active stocks by construction. Large gaps between observations can also make the increase in users appear more extreme than it really is, which could further inflate concentration in the top 10 stocks.
+
+\section*{Question 4}
+
+\subsection*{Part (a)}
+
+BHAR is a better estimator of returns in this situation because it accurately captures the highly volatile nature of these stocks. When a stock increases in price from A to B, and then drops back down to A, the percentage increase on the way up is mathematically larger than the percentage decrease on the way down. This is because the peak price (B) is larger than the starting price (A), meaning the drop from B to A represents a smaller proportion of the price. Because of this, if you simply add the daily returns together (CAR), it will incorrectly say that you have a positive return, despite you being in the exact same net position with no real gains. BHAR prevents this phantom positive return.
+
+Economically, this makes even more sense. When users see stocks driving upward in the Top Movers section on Robinhood, they invest in the same stock trying to catch the upward gains. However, all this does is artificially drive up the price; the actual value of the company did not really change. Intelligent investors will notice this, and as the investing frenzy cools, they will sell their shares while those who are less informed continue to hold. This causes the individuals who bought during the upward drive to lose money, as the stock will eventually go back down to its appropriate price.
+
+\subsection*{Part (b)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{tables/question4b.png}
+\end{figure}
+
+(\textbf{Note:} I used the 3-day gap restriction for this problem as well. I attempted to use no restrictions and the graphs were not lining up with the paper. The 3-day gap keeps the data cleaner by ensuring observations are close enough in time that user change values are meaningful. To see what the graph looked like without restrictions, please look at github repo: \\
+write-up/tables/4b\_without\_restrictions.png)
+
+The pattern noticed in my graphs agrees with the paper. I see that the vast majority of user change is seen on Day 0, and afterwards there is a drop in effect. There are large gaps in my mean userchg graph due to my restriction of 3-days, but it still tells the most important part of the data. The BHAR also shows a similar trend where after Day 0 there is a downward trend on returns due to the buying hype dying down. When the massive wave of users stops buying the stock, the artificial demand goes away and the price drops back to what the company is actually worth.
+
+\subsection*{Part (c)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{tables/question4c.png}
+\end{figure}
+
+This pattern is consistent with what we see in the paper, as User Change ratio increases, the number of events also
+decreases. This is because the higher the user change ratio, the more the extreme the event is which make them much more unlikely to occur.
+The paper uses line graphs and has much more observations, but the overall shape and trend of my graphs are identical to theirs.
+
+Additionally, the pattern we see in these graphs matches the return reversals in the paper. As we move down to the right side of each graph, 
+we are able to highlight the most extreme herding events. Since these are the most extreme events, their prices are driven extremely high and 
+therefore have a much bigger crash to return to their true value, which proves the temporary price pressure mechanism.
+
+(\textbf{Note:} I included two graphs, one with rescrtions and one without. They both told a simialr story so I included both to show that the pattern is consistent regardless of restrictions.)
 
 \end{document}
