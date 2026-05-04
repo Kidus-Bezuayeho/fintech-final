@@ -1,0 +1,60 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{parskip}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{graphicx}
+
+\onehalfspacing
+
+\begin{document}
+
+\noindent Kidus Bezuayeho \\
+May 2026 \\
+Fintech Write-Up
+
+\section*{Question 0}
+
+\subsection*{Part (a)}
+
+For an OLS regression to yield a causal estimate, it would need to be true that there is no omitted variable bias, no selection bias, and no reverse causality. This is because omitted variable bias can lead to a false relationship when a third factor drives both variables, selection bias can cause results to reflect the type of stocks that attract herding rather than herding itself, and reverse causality can make buying appear to predict returns when investors are actually reacting to expected returns.
+
+\subsection*{Part (b)}
+
+One confounder is media and news coverage. When a sector gets a lot of media attention, Robinhood users rush to buy stocks in that sector while prices rise across the board, even for companies that are not actually benefiting. When prices eventually fall back down, it looks like the buying caused the drop when really the media hype was responsible all along.
+
+Another confounder is earnings announcements. Before a company reports its earnings, speculation drives increased buying and price run-ups. If the report disappoints, prices fall, making the buying appear to have caused the drop when the earnings miss was the real cause.
+
+\subsection*{Part (c)}
+
+The authors attempt to address identification concerns in several ways. One approach is controlling for lagged returns, which minimizes the effects of stocks naturally bouncing back after a big move. If a stock shoots up one day, it often falls the next simply because of normal price behavior, not because of any buying activity. By controlling for lagged returns, the authors can show that the negative returns they find are not just this normal bounce-back effect.
+
+Another way they attempted to address this concern was with the outage analysis so that they could isolate the specific impact of Robinhood trading itself. On days when Robinhood went down, users who wanted to buy certain stocks simply could not. By comparing trading activity on outage days to normal days, the authors could show that the drop in trading was directly tied to Robinhood users being locked out, not to any other factor, making it much harder to argue that a third variable was driving the results.
+
+\section*{Question 1}
+
+\subsection*{Part (a)}
+
+Please see code, Solutions/Question\_1.py for how I calculated 1a, left comments in the code.
+
+\subsection*{Part (b)}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{tables/Panel_A.png}
+\end{figure}
+
+\subsection*{Part (c)}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{tables/Panel_B.png}
+\end{figure}
+
+\subsection*{Part (d)}
+
+When I compare my summary statistics to the paper, my subsample's distribution is comparable, though the scale differs due to the dataset size. In Panel A, the tendencies in my data are similar to the authors' findings. My median user count of 185.5 and average user ratio of 1.01 mirror the study's median of 160 and mean user ratio of 1.01. Both datasets show a positive skew which confirms that Robinhood user attention is focused on a few stocks. However, the maximums and daily aggregates are smaller in my subsample. The maximum daily user change in my sample is 3,334, compared to 85,193 in the paper. This makes sense because a random sample is less likely to have the massive trading events included. Additionally, my Panel B daily totals are lower. My sample averages 74 unique tickers and 153,000 total positions per day, whereas the full study tracks 7,211 tickers and 15 million daily positions.
+
+\end{document}
