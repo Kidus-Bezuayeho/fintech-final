@@ -9,6 +9,7 @@
 \usepackage{float}
 
 \onehalfspacing
+\pagestyle{plain}
 
 \begin{document}
 
@@ -111,5 +112,37 @@ most likely why it is not showing the same strong upward trend that the paper's 
 \centering
 \includegraphics[width=\textwidth]{tables/Total_User_Position_Overtime.png}
 \end{figure}
+
+\section*{Question 3}
+
+\subsection*{Part (a)}
+
+For this problem, I calculated user change without the 3-day gap. This is because with the 3-day each day would only have 6 stocks with valid values. 
+Since that would just include all 6 for each day, I opted to use the closest prior observation regardless of how long ago it was so that there would be more stocks per day to consider.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/3a.png}
+\end{figure}
+
+\subsection*{Part (b)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/3b.png}
+\end{figure}
+
+\subsection*{Part (c)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{tables/concentration_buying.png}
+\end{figure}
+
+\subsection*{Part (d)}
+
+In this comparison, we can see that the overall shape of the data is identical to that of the study, with rank one having the majority of the concentration, a sharp drop from rank 1 to rank 2, then a slow decline from rank 2 to 10. 
+However, the scale of my graph is much larger than that of the paper. My graph shows that the top 10 stocks have a concentration of about 93\% of the buying while the paper's is 35\%. This difference is likely due to my subsample having far fewer stocks observed per day, 
+so the top 10 captures nearly all active stocks by construction. Large gaps between observations can also make the increase in users appear more extreme than it really is, which could further inflate concentration in the top 10 stocks.
 
 \end{document}
