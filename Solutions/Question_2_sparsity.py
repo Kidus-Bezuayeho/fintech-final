@@ -34,7 +34,7 @@ print(f"  {avg_gap:.2f} days")
 print("=" * 50)
 print()
 
-# I compute userchg using the immediately prior observation with no gap limit
+
 # This shows what the distribution looks like without the 3-day filter
 userchg_no_filter = daily_all['users_close'] - daily_all.groupby('Ticker')['users_close'].shift(1)
 userchg_filtered  = userchg_no_filter[date_diff <= pd.Timedelta('3 days')]
@@ -63,4 +63,18 @@ print("  userchg — no gap filter vs. 3-day gap filter")
 print("=" * 80)
 print(comparison.to_string())
 print("=" * 80)
+print()
+
+# I pick the median-sized ticker to show a representative example of how sparse the gaps are
+sizes = daily_all.groupby('Ticker').size().sort_values()
+ticker_name = sizes.index[len(sizes) // 2]
+example = daily_all[daily_all['Ticker'] == ticker_name][['Ticker', 'Date', 'users_close']].copy()
+example['days_since_prev'] = daily_all[daily_all['Ticker'] == ticker_name].groupby('Ticker')['Date'].diff().dt.days.values
+
+print()
+print("=" * 60)
+print(f"  Example ticker: {ticker_name} — observations with gap to previous")
+print("=" * 60)
+print(example.to_string(index=False))
+print("=" * 60)
 print()
