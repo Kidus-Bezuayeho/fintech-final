@@ -33,3 +33,34 @@ print("=" * 50)
 print(f"  {avg_gap:.2f} days")
 print("=" * 50)
 print()
+
+# I compute userchg using the immediately prior observation with no gap limit
+# This shows what the distribution looks like without the 3-day filter
+userchg_no_filter = daily_all['users_close'] - daily_all.groupby('Ticker')['users_close'].shift(1)
+userchg_filtered  = userchg_no_filter[date_diff <= pd.Timedelta('3 days')]
+
+def stats(s):
+    s = s.dropna()
+    return pd.Series({
+        'N':    s.count(),
+        'Mean': s.mean(),
+        'SD':   s.std(),
+        'Min':  s.min(),
+        'p25':  s.quantile(0.25),
+        'p50':  s.quantile(0.50),
+        'p75':  s.quantile(0.75),
+        'Max':  s.max(),
+    })
+
+comparison = pd.DataFrame({
+    'No gap filter':    stats(userchg_no_filter),
+    '3-day gap filter': stats(userchg_filtered),
+}).T.round(4)
+
+print()
+print("=" * 80)
+print("  userchg — no gap filter vs. 3-day gap filter")
+print("=" * 80)
+print(comparison.to_string())
+print("=" * 80)
+print()

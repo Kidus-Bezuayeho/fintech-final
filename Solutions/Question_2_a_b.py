@@ -34,8 +34,6 @@ print("=" * 50)
 print("  (a) rh_herd summary")
 print("=" * 50)
 print(f"  Total herding events (rh_herd=1): {daily['rh_herd'].sum()}")
-print(f"  Total observations:               {len(daily)}")
-print(f"  Fraction flagged:                 {daily['rh_herd'].mean():.6f}")
 print("=" * 50)
 print()
 

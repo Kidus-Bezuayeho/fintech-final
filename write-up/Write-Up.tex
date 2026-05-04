@@ -6,6 +6,7 @@
 \usepackage{amsmath}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{float}
 
 \onehalfspacing
 
@@ -42,14 +43,14 @@ For user change, I had to calculate it with a 3 day gap between days. Since the 
 I choose the 3 day gap as it would allow me observe Friday to MOnday changes while excluding gaps that were to far to be meaningful.
 \subsection*{Part (b)}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{tables/Panel_A.png}
 \end{figure}
 
 \subsection*{Part (c)}
 
-\begin{figure}[h]
+\begin{figure}[H]
 \centering
 \includegraphics[width=\textwidth]{tables/Panel_B.png}
 \end{figure}
@@ -57,5 +58,58 @@ I choose the 3 day gap as it would allow me observe Friday to MOnday changes whi
 \subsection*{Part (d)}
 
 When I compare my summary statistics to the paper, my subsample's distribution is comparable, though the scale differs due to the dataset size. In Panel A, the tendencies in my data are similar to the authors' findings. My median user count of 185.5 and average user ratio of 1.01 mirror the study's median of 160 and mean user ratio of 1.01. Both datasets show a positive skew which confirms that Robinhood user attention is focused on a few stocks. However, the maximums and daily aggregates are smaller in my subsample. The maximum daily user change in my sample is 3,334, compared to 85,193 in the paper. This makes sense because a random sample is less likely to have the massive trading events included. Additionally, my Panel B daily totals are lower. My sample averages 74 unique tickers and 153,000 total positions per day, whereas the full study tracks 7,211 tickers and 15 million daily positions.
+
+\section*{Question 2}
+
+\subsection*{Part (a)}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/rh_herd_summary.png}
+\end{figure}
+
+\subsection*{Part (b)}
+
+There was a large discrepancy between the number of herding events in my sample and the paper's full dataset. My sample averaged 0.4851 herding events per day while the paper reported 9. I investigated why this difference existed and found it stems from the gaps between observations described in Question 1. The average gap between consecutive observations per ticker was ($\sim$)82 days. Because I cap the lookback at 3 days, most stocks have no valid userratio on any given day, leaving only ($\sim$)2.5 qualifying stocks per day. With such a small pool, 
+the top 0.5\% threshold flags roughly 1 out of every 2--3 stocks, making the indicator far less selective than it would be in the full dataset where ($\sim$)74 stocks qualify each day.\\
+
+If I do not use the 3-day gap and instead use the closest prior observation regardless of how long ago it was, the mean and standard deviation of user change become far larger and noisier, no longer comparable to the paper. Therefore, I will stick with the 3-day gap despite it greatly reducing the number of qualifying stocks and herding events per day.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/herding_vs_paper.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/sparsity.png}
+\end{figure}
+
+\subsection*{Part (c)}
+
+There was an issue where results from my sample for returns was lower than teh 366 herding events. I then discoverred that the issue was that many of the stocks seem to be delisted from yfinance.
+I included one example where a stock called ACT was mentioned in the dataset (I only included 5 mentions of it) but when I attempted to pull from yfinance you can see it return that it is not returning anything. 
+Please see Solutions/debug\_ACT.py to see how I tested this issue.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/summary_stats_2c.png}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.75\textwidth]{tables/delisted.png}
+\end{figure}
+
+\subsection*{Part (d)}
+
+The graph does show a similar story to the graphs of the study, we can see that after COVID the peaks of the users positions seem to be 
+much higher than before COVID. However, due to the my smaller sample size, my graph has much more volaitilty than the paper's graph. This is
+most likely why it is not showing the same strong upward trend that the paper's graph.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{tables/Total_User_Position_Overtime.png}
+\end{figure}
 
 \end{document}

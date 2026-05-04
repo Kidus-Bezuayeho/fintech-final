@@ -57,3 +57,18 @@ print("=" * 90)
 print(panel_c.to_string())
 print("=" * 90)
 print()
+
+# I identify tickers with no return data — these are delisted stocks yfinance cannot retrieve
+missing = herd[herd['returns'].isna()][['Date', 'Ticker']].reset_index(drop=True)
+missing['Date'] = missing['Date'].dt.strftime('%Y-%m-%d')
+
+print()
+print("=" * 50)
+print(f"  Tickers with no return data (delisted)")
+print("=" * 50)
+print(f"  Total missing: {len(missing)} of {len(herd)} herding events")
+print(f"  Unique tickers: {missing['Ticker'].nunique()}")
+print("-" * 50)
+print(missing.to_string(index=False))
+print("=" * 50)
+print()
